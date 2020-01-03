@@ -3,6 +3,7 @@ import React from 'react';
 const App = (props) => {
   const anecdotes = props.store.getState()
   const store = props.store
+  const sortedAnecdotes = anecdotes.sort((a, b) => b.votes - a.votes)
 
   const vote = (id) => {
     const newDispatch = {
@@ -30,7 +31,7 @@ const App = (props) => {
   return (
     <div>
       <h2>Anecdotes</h2>
-      {anecdotes.map(anecdote =>
+      {sortedAnecdotes.map(anecdote =>
         <div key={anecdote.id}>
           <div>
             {anecdote.content}
