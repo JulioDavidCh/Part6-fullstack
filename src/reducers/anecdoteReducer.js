@@ -32,6 +32,11 @@ const reducer = (state = initialState, action) => {
     })
     return newState
   }
+  if(action.type === 'ADD_NOTE'){
+    const newNote = asObject(action.data.content)
+    const newState = state.concat(newNote)
+    return newState
+  }
 
   return state
 }
