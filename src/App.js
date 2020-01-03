@@ -15,7 +15,7 @@ const App = (props) => {
     store.dispatch(newDispatch)
   }
 
-  const addNote = (event) => {
+  const addAnecdote = (event) => {
     event.preventDefault()
     const inputContent = event.target.note.value
     const newDispatch = {
@@ -42,7 +42,7 @@ const App = (props) => {
         </div>
       )}
       <h2>create new</h2>
-      <form onSubmit={addNote}>
+      <form onSubmit={addAnecdote}>
         <div><input name='note' /></div>
         <button>create</button>
       </form>
