@@ -1,4 +1,5 @@
 import React from 'react';
+import {voteAction, addAnecdoteAction} from './reducers/anecdoteReducer'
 
 const App = (props) => {
   const anecdotes = props.store.getState()
@@ -6,25 +7,14 @@ const App = (props) => {
   const sortedAnecdotes = anecdotes.sort((a, b) => b.votes - a.votes)
 
   const vote = (id) => {
-    const newDispatch = {
-      type: 'VOTE',
-      data: {
-        id
-      }
-    }
-    console.log('vote', id)
+    const newDispatch = voteAction(id)
     store.dispatch(newDispatch)
   }
 
   const addAnecdote = (event) => {
     event.preventDefault()
     const inputContent = event.target.note.value
-    const newDispatch = {
-      type: 'ADD_NOTE',
-      data: {
-        content: inputContent
-      }
-    }
+    const newDispatch = addAnecdoteAction(inputContent)
     store.dispatch(newDispatch)
   }
 
