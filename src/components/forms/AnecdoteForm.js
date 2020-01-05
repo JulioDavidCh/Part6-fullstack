@@ -1,5 +1,6 @@
 import React from 'react'
 import {addAnecdoteAction} from '../../reducers/anecdoteReducer'
+import {notificationAction} from '../../reducers/notificationReducer'
 
 const AnecdoteForm = (props) => {
   const store = props.store
@@ -7,8 +8,10 @@ const AnecdoteForm = (props) => {
   const addAnecdote = (event) => {
     event.preventDefault()
     const inputContent = event.target.note.value
-    const newDispatch = addAnecdoteAction(inputContent)
-    store.dispatch(newDispatch)
+    const newAnecdoteDispatch = addAnecdoteAction(inputContent)
+    const newNotificationDispatch = notificationAction(`added ${inputContent}`)
+    store.dispatch(newAnecdoteDispatch)
+    store.dispatch(newNotificationDispatch)
   }
   
   return (
