@@ -4,8 +4,11 @@ import {notificationAction} from '../../reducers/notificationReducer'
 
 const AnecdoteList = (props) => {
   const store = props.store
-  const anecdotes = store.getState().anecdotes
-  const sortedAnecdotes = anecdotes.sort((a, b) => b.votes - a.votes)
+  const {anecdotes, filterValue} = store.getState()
+  const filteredAnecdotes = anecdotes.filter(
+    anecdote => anecdote.content.indexOf(filterValue) > -1
+  )
+  const sortedAnecdotes = filteredAnecdotes.sort((a, b) => b.votes - a.votes)
 
   const vote = (id) => {
     const newDispatchVote = voteAction(id)
