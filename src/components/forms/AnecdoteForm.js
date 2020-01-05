@@ -10,8 +10,10 @@ const AnecdoteForm = (props) => {
     const inputContent = event.target.note.value
     const newAnecdoteDispatch = addAnecdoteAction(inputContent)
     const newNotificationDispatch = notificationAction(`added ${inputContent}`)
+    const newNotificationDispatchClear = notificationAction('')
     store.dispatch(newAnecdoteDispatch)
     store.dispatch(newNotificationDispatch)
+    setTimeout(()=> store.dispatch(newNotificationDispatchClear), 5000)
   }
   
   return (
