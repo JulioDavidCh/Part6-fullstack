@@ -4,11 +4,10 @@ import {notificationAction} from '../../reducers/notificationReducer'
 import { connect } from 'react-redux'
 
 const AnecdoteList = (props) => {
-  const vote = (id) => {
-    const anecdoteFromId = props.filteredAnecdotes.find(anecdote => id === anecdote.id)
-    props.voteAction(id)
-    props.notificationAction(`you voted '${anecdoteFromId.content}'`)
-    setTimeout(() => props.notificationAction(`you voted '${anecdoteFromId.content}'`), 5000)
+  const vote = (anecdote) => {
+    props.voteAction(anecdote.id)
+    props.notificationAction(`you voted '${anecdote.content}'`)
+    setTimeout(() => props.notificationAction(`you voted '${anecdote.content}'`), 5000)
   }
 
   return(
@@ -21,7 +20,7 @@ const AnecdoteList = (props) => {
           </div>
           <div>
             has {anecdote.votes}
-            <button onClick={() => vote(anecdote.id)}>vote</button>
+            <button onClick={() => vote(anecdote)}>vote</button>
           </div>
         </div>
       )}
