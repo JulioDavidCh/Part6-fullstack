@@ -4,11 +4,6 @@ import {notificationAction} from '../../reducers/notificationReducer'
 import { connect } from 'react-redux'
 
 const AnecdoteList = (props) => {
-  const filteredAnecdotes = props.anecdotes.filter(
-    anecdote => anecdote.content.indexOf(props.filterValue) > -1
-  )
-  const sortedAnecdotes = filteredAnecdotes.sort((a, b) => b.votes - a.votes)
-
   const vote = (id) => {
     const anecdoteFromId = props.anecdotes.find(anecdote => id === anecdote.id)
     props.voteAction(id)
@@ -19,7 +14,7 @@ const AnecdoteList = (props) => {
   return(
     <div>
     <h2>Anecdotes</h2>
-      {sortedAnecdotes.map(anecdote =>
+      {props.filteredAnecdotes.map(anecdote =>
         <div key={anecdote.id}>
           <div>
             {anecdote.content}
@@ -35,10 +30,18 @@ const AnecdoteList = (props) => {
   )
 }
 
+const filteredAnecdotes = ({ anecdotes, filterValue }) =>{
+  return(
+    anecdotes
+    .filter(anecdote => anecdote.content.indexOf(filterValue) > -1)
+    .sort((a, b) => b.votes - a.votes)
+  )
+}
+
 const mapStateProps = (state) => {
   return {
     anecdotes: state.anecdotes, 
-    filterValue: state.filterValue
+    filteredAnecdotes: filteredAnecdotes(state)
   }
 }
 
