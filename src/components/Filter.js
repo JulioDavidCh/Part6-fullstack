@@ -1,13 +1,11 @@
 import React from 'react'
 import {actionCreatorFilter} from '../reducers/filterReducer'
+import { connect } from 'react-redux'
 
 const Filter = (props) => {
-  const store = props.store
 
   const filterHandler = event => {
-    const valueToFilter = event.target.value
-    const newDispatchFilter = actionCreatorFilter(valueToFilter)
-    store.dispatch(newDispatchFilter)
+    props.actionCreatorFilter(event.target.value)
   }
 
   return (
@@ -18,4 +16,8 @@ const Filter = (props) => {
   )
 }
 
-export default Filter
+const mapDispatchToProps = {
+  actionCreatorFilter
+}
+
+export default connect(null, mapDispatchToProps)(Filter)
