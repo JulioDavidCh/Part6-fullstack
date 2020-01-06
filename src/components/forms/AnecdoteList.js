@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 
 const AnecdoteList = (props) => {
   const vote = (id) => {
-    const anecdoteFromId = props.anecdotes.find(anecdote => id === anecdote.id)
+    const anecdoteFromId = props.filteredAnecdotes.find(anecdote => id === anecdote.id)
     props.voteAction(id)
     props.notificationAction(`you voted '${anecdoteFromId.content}'`)
     setTimeout(() => props.notificationAction(`you voted '${anecdoteFromId.content}'`), 5000)
@@ -40,7 +40,6 @@ const filteredAnecdotes = ({ anecdotes, filterValue }) =>{
 
 const mapStateProps = (state) => {
   return {
-    anecdotes: state.anecdotes, 
     filteredAnecdotes: filteredAnecdotes(state)
   }
 }
