@@ -32,10 +32,13 @@ const voteAction = (id) => {
   }
 }
 
-const addAnecdoteAction = data => {
-  return {
-    type: 'ADD_NOTE',
-    data
+const addAnecdoteAction = content => {
+  return async dispatch => {
+    const data = await noteServices.addNew(content)
+    dispatch({
+      type: 'ADD_NOTE',
+      data
+    })
   }
 }
 
