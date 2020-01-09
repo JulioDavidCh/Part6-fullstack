@@ -3,16 +3,13 @@ import noteServices from '../services/anecdotes'
 const anecdoteReducer = (state = [], action) => {
   switch (action.type) {
     case 'VOTE' :
-      const id = action.data.id
-      const anecdoteToChange = state.find(anecdote => anecdote.id === id)
-      anecdoteToChange.votes = anecdoteToChange.votes + 1
-      const newState = state.map(anecdote =>{
-        if(anecdote.id === id){
-          return anecdoteToChange
-        }
-        return anecdote
+      return state.map(anecdote =>{
+        return(
+          anecdote.id === action.data.id
+          ? action.data
+          : anecdote
+        )
       })
-      return newState
     case 'ADD_NOTE': 
       const newStateWithAnecdote = state.concat(action.data)
       return newStateWithAnecdote
@@ -23,12 +20,13 @@ const anecdoteReducer = (state = [], action) => {
   }
 }
 
-const voteAction = (id) => {
-  return {
-    type: 'VOTE',
-    data: {
-      id
-    }
+const voteAction = (anecdote) => {
+  return async dispatch =>{
+    const data = await noteServices.updateVote(anecdote)
+    dispatch({
+      type: 'VOTE',
+      data
+    })
   }
 }
 
