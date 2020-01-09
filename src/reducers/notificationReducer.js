@@ -1,9 +1,17 @@
 const initialState = ''
 
-const notificationAction = notification => {
-  return {
-    type: 'SET_NOTIFICATION',
-    notification
+const notificationAction = (notification, time) => {
+  return dispatch => {
+    dispatch({
+      type: 'SET_NOTIFICATION',
+      notification
+    })
+    setTimeout(
+      ()=> dispatch({
+        type: 'SET_NOTIFICATION',
+        notification: ''
+      })
+    , time*1000)
   }
 }
 
